@@ -123,7 +123,7 @@ impl<'a> Adapter for OssAdapter<'a> {
 	async fn mime_type(&self, path: &Path) -> Result<Mime, Self::Error> {
         let meta = self.head_object(path).await?;
         
-		todo!()
+		Ok(Mime::from_str(meta.mime_type.as_str()).unwrap())
 	}
 	async fn last_modified(&self, path: &Path) -> Result<SystemTime, Self::Error> {
 		let meta = self.head_object(path).await?;
@@ -164,7 +164,8 @@ impl<'a> Adapter for OssAdapter<'a> {
 		todo!()
 	}
 	async fn checksum(&self, path: &Path) -> Result<String, Self::Error> {
-		todo!()
+		let meta = self.head_object(path).await?;
+        Ok(meta.md5)
 	}
 }
 
