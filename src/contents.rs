@@ -1,3 +1,8 @@
+use std::io::Read;
+
+#[cfg(feature = "oss")]
+use bytes::Bytes;
+
 pub struct Contents {
 	data: Vec<u8>,
 }
@@ -12,6 +17,22 @@ impl Contents {
 		})
 	}
 }
+
+// #[cfg(feature = "oss")]
+// impl From<Contents> for Bytes {
+// 	fn from(value: Contents) -> Self {
+// 		Bytes::from_static(value.data.bytes())
+// 	}
+// }
+#[cfg(feature = "oss")]
+impl From<Bytes> for Contents {
+	fn from(value: Bytes) -> Self {
+		Self {
+			data: value.to_vec(),
+		}
+	}
+}
+
 
 impl From<Contents> for Vec<u8> {
 	fn from(contents: Contents) -> Self {

@@ -13,6 +13,9 @@ pub mod memory;
 #[cfg(feature = "s3")]
 pub mod s3;
 
+#[cfg(feature = "oss")]
+pub mod oss;
+
 #[cfg(feature = "local")]
 pub use local::LocalAdapter;
 pub use memory::MemoryAdapter;
